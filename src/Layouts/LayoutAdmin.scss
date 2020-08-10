@@ -1,0 +1,35 @@
+
+@import "../../node_modules/bootswatch/dist/lux/bootstrap.min.css";
+
+.navbar{
+  height: 60px !important;
+  background-color: #2b3950 !important;
+}
+
+.content-panel {
+  margin-top: 80px;
+}
+
+.sidebar{
+  background-color: #1f2733;
+}
+
+.sidebar ul{
+  margin-top: 30px;
+}
+
+.sidebar ul li {
+  list-style: none;
+  margin-bottom: 20px;
+}
+
+.image-avatar{
+  width: 40%;
+ /* float: right;*/
+
+}
+
+.nav-item {
+   margin-right: 0rem !important;
+}
+

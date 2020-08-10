@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es5",
+    "sourceMap": false, // nos ayuda a q el nav nos de los errores
+    "removeComments": true,
+    "outDir": "./dist",   // directorio de salida..
+    "noImplicitAny": true,  // evitar declarar variables sin tipo
+    "watch": true,
+    "rootDir": "src",
+    "experimentalDecorators": true
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
