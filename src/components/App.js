@@ -12,6 +12,7 @@ import LayoutAdmin from "../Layouts/LayoutAdmin";
 import LayoutLogin from "../Layouts/LayoutLogin";
 import ChatPage from "../pages/ChatPage";
 import ShowProfile from "./ShowProfile";
+import PostsPrivacity from "../pages/PostPrivacity";
 
 
 
@@ -50,6 +51,11 @@ const App = () => (
                 <Route path="/posts">
                     <LayoutAdmin>
                         <Posts />
+                    </LayoutAdmin>
+                </Route>
+                <Route path="/postpriv">
+                    <LayoutAdmin>
+                        <PostsPrivacity />
                     </LayoutAdmin>
                 </Route>
                 <Route path="/profile">

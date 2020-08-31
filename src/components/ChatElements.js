@@ -3,7 +3,9 @@ import React from 'react'
 import auth from 'solid-auth-client'
 import {AgentSolid} from "../lib/agent-solid";
 import data from "@solid/query-ldflex";
-import ChatItem from "./ChatItem";
+import ChatItem2 from "./ChatItem2";
+import {Button, Container, TextField} from "@material-ui/core";
+import { namedNode } from '@rdfjs/data-model';
 
 export default class ChatElements extends React.Component {
 
@@ -12,7 +14,8 @@ export default class ChatElements extends React.Component {
         this.state = {
             pod : {instances: []},
             infoChat: { years: [], months: [], days: []},
-            documents: []
+            documents: [],
+            chatMessage: ''
         };
 
         this.name = "Chats";
@@ -319,33 +322,64 @@ export default class ChatElements extends React.Component {
         await this.showChat()
     }
 
+    async sendMessage(){
+        let webid = this.webId;
+
+        var content = this.state.chatMessage;
+        var dateObj = new Date();
+        var messageId = "#Msg" + dateObj.getTime()
+        var month = ("0" + (dateObj.getUTCMonth() + 1)).slice(-2); //months from 1-12
+        var day = ("0" + dateObj.getUTCDate()).slice(-2);
+        var year = dateObj.getUTCFullYear();
+        var path = this.discover.folder + [year, month, day, ""].join("/")
+        var url = path + "chat.ttl" + messageId
+        var date = dateObj.toISOString()
+        var index = this.discover.folder + "index.ttl#this"
+        await data[url].dct$created.add(date)
+        await data[url].sioc$content.add(content)
+        await data[url].foaf$maker.add(namedNode(`${webid}`))
+        await data.from(url)[index]['http://www.w3.org/2005/01/wf/flow#message'].add(namedNode(url))
+        //  var postType = this.shadowRoot.querySelector('input[name="inlineRadioOptions"]:checked').value
+       // if (this.postType != "InstantMessage") {
+        await data[url].rdfs$type.add(namedNode('http://rdfs.org/sioc/types#InstantMessage'))
+        this.setState({chatMessage: ''})
+        //}
+    }
+
+    handleChangeChatMessage(event){
+        console.log(event)
+        this.setState({chatMessage: event.target.value});
+    }
+
     render() {
 
         const {  pod, infoChat, documents } = this.state;
         console.log(pod);
         return (
-            <div>
+            <Container>
 
                 {pod.instances.length>0 ?
                     (
-                        <ul className="nav nav-pills">
-                            {pod.instances.map((i) => {
-                                return <li class="active">
-                                    <button type="button"
-                                            key={i}
-                                            class="btn btn-success btn-sm"
-                                            url={i.object}
-                                            onClick={this.open.bind(this)}
-                                            classe={i.classe}>
-                                    {this.cutStorage(i.object)}
-                                    {i.shortClasse.toLowerCase()}
-                                    </button>
-                                </li>
-                            })
-                            }
-                        </ul>
 
-
+                        <div className="row">
+                            <h6>Canales de Chat: </h6>
+                            <ul className="nav nav-pills">
+                                {pod.instances.map((i) => {
+                                    return <li className="active">
+                                        <button type="button"
+                                                key={i}
+                                                className="btn btn-success btn-sm"
+                                                url={i.object}
+                                                onClick={this.open.bind(this)}
+                                                classe={i.classe}>
+                                            {this.cutStorage(i.object)}
+                                            {i.shortClasse.toLowerCase()}
+                                        </button>
+                                    </li>
+                                })
+                                }
+                            </ul>
+                        </div>
 
                     )
                 :
@@ -357,19 +391,25 @@ export default class ChatElements extends React.Component {
 
 
                 <div className="row">
+
                     {infoChat.years.map((y) => {
-                        return <button key={y} type="button" className="btn btn-primary btn-sm" onClick={this.setCurrentYear.bind(this)} year={y}>{y}</button>
+                        return <h6>Periodos:</h6>
+                    })}
+
+
+                    {infoChat.years.map((y) => {
+                        return <button key={y} type="button" className="btn btn-secondary btn-sm" onClick={this.setCurrentYear.bind(this)} year={y}>{y}</button>
                     })
                     }
 
 
                     {infoChat.months.map((m) => {
-                        return <button key={m} type="button" className="btn btn-primary btn-sm" onClick={this.setCurrentMonth.bind(this)} month={m} >{m}</button>
+                        return <button key={m} type="button" className="btn btn-secondary btn-sm" onClick={this.setCurrentMonth.bind(this)} month={m} >{m}</button>
                     })
                     }
 
-                    {this.discover.days.map((d) => {
-                        return <button type="button" className="btn btn-primary btn-sm" onClick={this.setCurrentDay.bind(this)} day={d} >{d}</button>
+                    {infoChat.days.map((d) => {
+                        return <button type="button" className="btn btn-secondary btn-sm" onClick={this.setCurrentDay.bind(this)} day={d} >{d}</button>
                     })
                     }
 
@@ -399,7 +439,7 @@ export default class ChatElements extends React.Component {
                             {documents.map((d, index) => {
                                return d.split('#').length > 1 && d.split('#')[1].startsWith('Msg') &&
                                     <li key={d} className="list-group-item border-bottom-0 p-0">
-                                        <ChatItem url={d}  chatOwner={this.chatOwner} discover={this.discover} webId={this.webId} />
+                                        <ChatItem2 url={d}  chatOwner={this.chatOwner} discover={this.discover} webId={this.webId} />
                                     </li>
 
                             })
@@ -410,7 +450,18 @@ export default class ChatElements extends React.Component {
 
                 }
 
-            </div>
+                <TextField
+                    label="New Chat Message"
+                    multiline
+                    rowsMax={6}
+                    value={this.state.chatMessage}
+                    onChange={this.handleChangeChatMessage.bind(this)}
+                    variant="outlined"
+                />
+
+                <Button onClick={this.sendMessage.bind(this)} variant="outlined" color="primary" >Enviar</Button>
+
+            </Container>
         )
     }
 

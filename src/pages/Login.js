@@ -40,7 +40,7 @@ export default function Login()  {
         setProvider(event.target.value);
     };
 
-    const hanldeLogin = (event) => {
+    const handleLogin = (event) => {
         if(provider){
             auth.login(provider)
         }
@@ -63,17 +63,17 @@ export default function Login()  {
                         <div>
 
                             <FormControl className={classes.formControl}>
-                                <InputLabel id="demo-simple-select-label">Seleccione el proveedor SOLID</InputLabel>
+                                <InputLabel id="demo-simple-select-label">Seleccione una opción</InputLabel>
                                 <Select value={provider} onChange={handleChange}>
-                                    <MenuItem value='https://solid.community/'>Solid</MenuItem>
-                                    <MenuItem value='https://localhost:8443'>Solid Local</MenuItem>
+                                    <MenuItem value='https://solid.community/'>Solid Provider</MenuItem>
+                                    <MenuItem value='https://inrupt.net/'>Inrupt Provider</MenuItem>
+                                    <MenuItem value='https://localhost:8443'>Solid Local Provider</MenuItem>
                                 </Select>
 
                             </FormControl>
 
-                            <Button variant="contained" color="primary" onClick={hanldeLogin}>
-                                Conectar
-                            </Button>
+
+                            <input type="button" className="fadeIn fourth" value="Entrar" onClick={handleLogin} />
                         </div>
                     )
                 }

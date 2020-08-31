@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {Redirect} from 'react-router';
 import 'jquery'
 import 'bootstrap'
-import imgAvatar from '../assets/images/people.png'
+import imgLogin from '../assets/images/login-icon.png'
 import './../assets/css/login.css'
 
 export default class LayoutLogin extends Component {
@@ -23,22 +23,36 @@ export default class LayoutLogin extends Component {
 
             <div className="container">
 
-                <div className="d-flex justify-content-center h-100">
-                    <div className="card">
-                        <div className="card-header">
-                            <h3>Sign In</h3>
-                            <div className="d-flex justify-content-end social_icon">
-                                <span><i className="fab fa-facebook-square"></i></span>
-                                <span><i className="fab fa-google-plus-square"></i></span>
-                                <span><i className="fab fa-twitter-square"></i></span>
-                            </div>
+                <h2 className="text-center">Welcome to Solid App</h2>
+
+                <div className="wrapper fadeInDown">
+                    <div id="formContent">
+
+                        <div className="fadeIn first">
+                            <img src={imgLogin} id="icon" alt="User Icon"/>
                         </div>
-                        <div className="card-body">
+
+
+                        <form>
+
                             {this.props.children}
+                            {/*<input type="text" id="login" className="fadeIn second" name="login" placeholder="login" />*/}
+                            {/*    <input type="text" id="password" className="fadeIn third" name="login"*/}
+                            {/*           placeholder="password" ></input>*/}
+                            {/*    <input type="submit" className="fadeIn fourth" value="Log In" ></input>*/}
+                        </form>
+
+
+                        <div id="formFooter">
+                            {/*<a className="underlineHover" href="#">Forgot Password?</a>*/}
                         </div>
+
                     </div>
-                </div>
+
             </div>
+
+            </div>
+
         );
     }
 

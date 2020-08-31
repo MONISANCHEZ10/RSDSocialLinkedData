@@ -9,10 +9,6 @@ import Footer from "../components/Footer";
 
 const Friends = () => (
     <div>
-        {/*<nav>*/}
-        {/*    <AuthButtons />*/}
-        {/*</nav>*/}
-
         <FriendsInfo />
         <Footer />
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './assets/css/style.css'
 //const auth = require('solid-auth-client')
 //window.solid = { auth }
 //console.log(' src/index.js')

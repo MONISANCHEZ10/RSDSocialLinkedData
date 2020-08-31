@@ -6,6 +6,16 @@ import imgAvatar from '../assets/images/people.png'
 import style from './LayoutAdmin.css'
 import {Link} from "react-router-dom";
 import auth from "solid-auth-client";
+import HomeIcon from '@material-ui/icons/Home';
+import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
+import RecentActorsIcon from '@material-ui/icons/RecentActors';
+import GroupAddIcon from '@material-ui/icons/GroupAdd';
+import AccountBoxIcon from '@material-ui/icons/AccountBox';
+import PhotoAlbumIcon from '@material-ui/icons/PhotoAlbum';
+import PostAddIcon from '@material-ui/icons/PostAdd';
+import ChatIcon from '@material-ui/icons/Chat';
+import InfoIcon from '@material-ui/icons/Info';
+
 
 export default function LayoutAdmin(props) {
 
@@ -37,9 +47,12 @@ export default function LayoutAdmin(props) {
 
                 <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
                     <a className="navbar-brand" href="#">SOLID REACT</a>
-                    <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                    <button className="navbar-toggler" type="button" data-toggle="collapse"
+                            data-target="#navbarColor01" aria-controls="navbarColor01"
+                            aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
+
 
                     <div className="collapse navbar-collapse " id="navbarColor01">
                         <ul className="navbar-nav mr-auto ">
@@ -71,29 +84,32 @@ export default function LayoutAdmin(props) {
 
                 <div className="row" style={heightContent}>
 
-                    <div className="col-2 navbar-dark bg-primary sidebar">
+                    <div className="col-2  navbar-dark bg-primary sidebar">
 
                         <ul className="menu-admin">
                             <li>
-                                <Link to="/home">Home</Link>
+                                <Link to="/home"><HomeIcon/>  INICIO </Link>
                             </li>
                             <li>
-                                <Link to="/profile">Profile</Link>
+                                <Link to="/profile"><EditOutlinedIcon/> PERFIL</Link>
                             </li>
                             <li>
-                                <Link to="/show-profile">Show Profile</Link>
+                                <Link to="/show-profile"><AccountBoxIcon/> MI PERFIL</Link>
                             </li>
                             <li>
-                                <Link to="/friends">Friends</Link>
+                                <Link to="/friends"><GroupAddIcon/> AMIGOS</Link>
                             </li>
                             <li>
-                                <Link to="/posts">Posts</Link>
+                                <Link to="/posts"><PhotoAlbumIcon/> GALERIA</Link>
                             </li>
                             <li>
-                                <Link to="/chat">Chat</Link>
+                                <Link to="/postpriv"><PostAddIcon/> PUBLICACIONES</Link>
                             </li>
                             <li>
-                                <Link to="/about">About</Link>
+                                <Link to="/chat"><ChatIcon/> CHAT</Link>
+                            </li>
+                            <li>
+                                <Link to="/about"><InfoIcon/> INFO</Link>
                             </li>
                         </ul>
 

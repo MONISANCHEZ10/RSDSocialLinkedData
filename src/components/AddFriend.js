@@ -18,6 +18,7 @@ class AddFriend {
                 if (await this.friendAlreadyAdded(id, webId)) {
                     //notificamos si el amigo estaba añadido
                     NotificationManager.error("", added, 3000);
+
                     ret = -1;
                 } else {
                     await user.knows.add(data[id]); //añadimos el amigo

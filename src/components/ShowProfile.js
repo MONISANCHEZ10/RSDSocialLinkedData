@@ -2,9 +2,16 @@ import React from 'react'
 import auth from 'solid-auth-client'
 import datt from "@solid/query-ldflex";
 import InputLabel from "@material-ui/core/InputLabel";
-import GridList from "@material-ui/core/GridList";
-
-
+import Card from "@material-ui/core/Card";
+import CardHeader from "@material-ui/core/CardHeader";
+import Avatar from "@material-ui/core/Avatar";
+import CardMedia from "@material-ui/core/CardMedia";
+import CardContent from "@material-ui/core/CardContent";
+import Typography from "@material-ui/core/Typography";
+import CardActions from "@material-ui/core/CardActions";
+import Helpers  from "../lib/helpers";
+import TextField from "@material-ui/core/TextField";
+import Grid from "@material-ui/core/Grid";
 
 export default class ShowProfile extends React.Component {
 
@@ -25,88 +32,93 @@ export default class ShowProfile extends React.Component {
             region: "",
             country: ""
         };
+        console.log(props)
 
     }
 
-    async componentWillMount() {
-         await auth.trackSession(session => {
-            if(session){
-                this.setState({ webId: session && session.webId });
-                const myWebId = datt[this.state.webId];
-                this.getProfileData(myWebId)
-            }
-        });
+    componentWillReceiveProps(nextProps) {
+        console.log('update props', this.props, nextProps)
+        const { webId } = this.props
+        if (nextProps.webId !== "" && webId !== nextProps.webId) {
+            this.setState({ webId: nextProps.webId })
+            console.log(this.state.webId)
+            const myWebId = datt[nextProps.webId];
+            // Helpers.getProfileData(myWebId).then(() => console.log('done'))
+            Helpers.getProfileData( myWebId).then((dataUser) => {
+                console.log(dataUser);
+                this.setState({...this.state, ...dataUser});
+            })
+        }
     }
 
-    async  getProfileData (webId)  {
-        // TODO this could be refactor to do not have to await for each of the individual promises
-        const me = datt[webId];
-        this.state.fn = `${await me.vcard_fn}`; // Fullname
-        this.state.url = `${await me["solid:account"]}`.concat("profile/card#");
-        this.state.image = `${await me["vcard:hasPhoto"]}`;
-        this.state.company = `${await me["vcard:organization-name"]}`;
-        this.state.role = `${await me["vcard:role"]}`;
-        this.state.note = `${await me["vcard:note"]}`;
-        for await (const addresses of me["vcard:hasAddress"]) {
-            let address = datt[addresses];
-            let locality = await address["vcard:locality"];
-            this.state.locality  = `${locality}`;
-            let country = await address["vcard:country-name"];
-            this.state.country  = `${country}`;
-            let region = await address["vcard:region"];
-            this.state.region  = `${region}`;
-            let postalCode = await address["vcard:postal-code"];
-            this.state.postalCode  = `${postalCode}`;
-            let streetAddress = await address["vcard:street-address"];
-            this.state.address  = `${streetAddress}`;
-            break;
-        }
-        for await (const phone of me["vcard:hasTelephone"]) {
-            let pho = datt[phone];
-            let value = await pho["vcard:value"];
-            value = `${value}`;
-            this.state.phone = value.split(":")[1];
-            break
-        }
-        for await (const email of me["vcard:hasEmail"]) {
-            let mail = datt[email];
-            let value = await mail["vcard:value"];
-            value = `${value}`;
-            this.state.email = value.split(":")[1];
-            break
-        }
-        return this.setState(this.state);
-    };
+    componentDidMount() {
+        console.log("desmontndo componente")
+         auth.trackSession(async(session) => {
+                if(session){
+                     if(session && this.props.webId == {}){
+                         console.log("WEB ID DE SHOW amigo")
+                         this.setState({webId: this.props.webId});
+                     }
+                     else{
+                        this.setState({webId: session && session.webId});
+                     }
+                     const myWebId = datt[this.state.webId];
+                    Helpers.getProfileData( myWebId).then((dataUser) => {
+                        console.log(dataUser);
+                        this.setState({...this.state, ...dataUser});
+                    })
+
+                    return null;
+                 }
+             });
+    }
 
     render() {
         const { webId } = this.state;
         return (
             <div>
+                <Card  className={{ maxWidth: 845}}>
+                    <CardHeader
+                        avatar={
+                            <Avatar aria-label="recipe"  style ={{  height :"10rem" ,width: "10rem" }} src={this.state.image} >  </Avatar>
+                        }
+                        title={this.state.fn}
+                    />
+                    <CardContent>
+                        <Grid container spacing={2}>
+                            <Grid item >
+                                <InputLabel className='label'>WEB ID: </InputLabel>
+                                <TextField className='input-label' variant="outlined"   style = {{  width: '56ch' }} value={webId} disabled/>
+                                <InputLabel className='label'>SOBRE MI:</InputLabel>
+                                <TextField className='input-label' variant="outlined"   style = {{  width: '56ch' }} value={this.state.note} disabled/>
+                                <InputLabel className='label'>EMAIL:</InputLabel>
+                                <TextField className='input-label' variant="outlined"   style = {{  width: '56ch' }} value={this.state.email} disabled/>
+                                <InputLabel className='label'>COMPANIA:</InputLabel>
+                                <TextField className='input-label' variant="outlined"   style = {{  width: '56ch' }} value={this.state.company} disabled/>
+                                <InputLabel className='label'>DIRECCION:</InputLabel>
+                                <TextField className='input-label' variant="outlined"   style = {{  width: '56ch' }} value={this.state.address} disabled/>
+                            </Grid>
+                            <Grid item >
+                                <InputLabel className='label'>TELEFONO:</InputLabel>
+                                <TextField className='input-label' variant="outlined"   style = {{  width: '56ch' }} value={this.state.phone} disabled/>
+                                <InputLabel className='label'>PAIS:</InputLabel>
+                                <TextField className='input-label' variant="outlined"   style = {{  width: '56ch' }} value={this.state.country} disabled/>
+                                <InputLabel className='label'>CODIGO POSTAL:</InputLabel>
+                                <TextField className='input-label' variant="outlined"   style = {{  width: '56ch' }} value={this.state.postalCode} disabled/>
+                                <InputLabel className='label'>REGION:</InputLabel>
+                                <TextField className='input-label' variant="outlined"   style = {{  width: '56ch' }} value={this.state.region} disabled/>
+                                <InputLabel className='label'>LOCALIDAD: </InputLabel>
+                                <TextField className='input-label' variant="outlined"   style = {{  width: '56ch' }} value={this.state.locality} disabled/>
 
 
-                <img src = {this.state.image} width="250" ></img>
-                <InputLabel>MI WEB ID: {webId}</InputLabel>
+                            </Grid>
+                        </Grid>
+                    </CardContent>
 
-                <GridList cellHeight={160}  cols={2}>
-
-                </GridList>
-
-                <InputLabel>NOMBRE: {this.state.fn}</InputLabel>
-                <InputLabel>SOBRE MI: {this.state.note}</InputLabel>
-                <InputLabel>EMAIL: {this.state.email}</InputLabel>
-                <InputLabel>TELEFONO: {this.state.phone}</InputLabel>
-                <InputLabel>ROL: {this.state.role}</InputLabel>
-                <InputLabel>COMPANIA: {this.state.company}</InputLabel>
-                <InputLabel>DIRECCION: {this.state.address}</InputLabel>
-                <InputLabel>PAIS: {this.state.country}</InputLabel>
-                <InputLabel>LOCALIDAD: {this.state.locality}</InputLabel>
-                <InputLabel>CODIGO POSTAL: {this.state.postalCode}</InputLabel>
-                <InputLabel>REGION: {this.state.region}</InputLabel>
-
-
-
-
+                </Card>
             </div>
         )
     }
+
+
 }
