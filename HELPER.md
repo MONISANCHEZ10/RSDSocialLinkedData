@@ -27,7 +27,7 @@ D:.
 │       Copy.ts
 │       Footer.js
 │       PersonalInfo.js
-│       Profile.js
+│       EditProfile.js
 ├───Domain
 │       ProfileCard.ts
 ├───Layouts
