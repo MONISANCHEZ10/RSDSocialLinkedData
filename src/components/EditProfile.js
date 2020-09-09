@@ -24,7 +24,7 @@ const MyBackdrop = styled(Backdrop)({
     color: '#fff',
 });
 
-export default class Profile extends React.Component {
+export default class EditProfile extends React.Component {
 
     constructor(props) {
         super(props);

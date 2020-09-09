@@ -1,6 +1,6 @@
 import React from 'react'
 import PersonalInfo from "../components/PersonalInfo";
-import Profile from "../components/Profile";
+import Profile from "../components/EditProfile";
 
 const ProfilePage = () => (
     <div>

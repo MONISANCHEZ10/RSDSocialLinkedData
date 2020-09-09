@@ -93,7 +93,6 @@ var Helpers = {
         console.log("lenyendo amigos")
         let friendsTemp = [];
         for await (const name of person.friends){
-            console.log("FOOOOR amigos")
             const webIdDoc = await fetchDocument(name);
             const profile = webIdDoc.getSubject(name);
             let card = {
