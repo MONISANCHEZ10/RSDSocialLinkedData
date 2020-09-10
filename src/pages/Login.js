@@ -65,9 +65,9 @@ export default function Login()  {
                             <FormControl className={classes.formControl}>
                                 <InputLabel id="demo-simple-select-label">Seleccione una opción</InputLabel>
                                 <Select value={provider} onChange={handleChange}>
-                                    <MenuItem value='https://solid.community/'>Solid Provider</MenuItem>
-                                    <MenuItem value='https://inrupt.net/'>Inrupt Provider</MenuItem>
-                                    <MenuItem value='https://localhost:8443'>Solid Local Provider</MenuItem>
+                                    <MenuItem value='https://solid.community/'>Solid Community Provider</MenuItem>
+                                    <MenuItem value='https://inrupt.net/'>SOLID Inrupt Provider</MenuItem>
+                                    <MenuItem value='https://localhost:8443'>SOLID Local Provider</MenuItem>
                                 </Select>
 
                             </FormControl>

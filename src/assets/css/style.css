@@ -22,3 +22,19 @@ body {
     position: relative;
     text-align: right;
 }
+
+ form textarea{
+
+    font-family: "Roboto", sans-serif;
+    padding: 10px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    color: #525c66;
+    resize: horizontal;
+     border-radius: 10px;
+}
+.textarea:focus
+{
+    color: #2E3133;
+    border-color: #FBFFAD;
+}

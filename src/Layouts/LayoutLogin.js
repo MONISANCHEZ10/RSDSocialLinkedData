@@ -23,7 +23,7 @@ export default class LayoutLogin extends Component {
 
             <div className="container">
 
-                <h2 className="text-center">Welcome to Solid App</h2>
+                <h2 className="text-center">BIENVENIDO RSD TODAY</h2>
 
                 <div className="wrapper fadeInDown">
                     <div id="formContent">

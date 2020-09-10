@@ -12,9 +12,11 @@ import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
 import CardActions from "@material-ui/core/CardActions";
 import ImageUploading from "react-images-uploading";
+import AddPhotoAlternateIcon from '@material-ui/icons/AddPhotoAlternate';
 const $rdf = require('rdflib')
 const FC   = require('solid-file-client')
 const fc   = new FC( auth )
+import CreateIcon from '@material-ui/icons/Create';
 import * as session from "solid-auth-cli";
 import data from "@solid/query-ldflex";
 import FormControl from '@material-ui/core/FormControl';
@@ -25,7 +27,7 @@ import Radio from "@material-ui/core/Radio";
 import PostsHelpers from "../lib/PostsHelpers";
 import PublicIcon from '@material-ui/icons/Public';
 import TurnedInIcon from '@material-ui/icons/TurnedIn';
-
+import WallpaperIcon from '@material-ui/icons/Wallpaper';
 export default class PostCreator extends React.Component {
 
     constructor(props) {
@@ -118,51 +120,61 @@ export default class PostCreator extends React.Component {
 
         return (
             <div>
-                <div>
-                    <form onSubmit={this.AddPostSubmit}>
+                <Card style={{ maxWidth: 645}} >
+                    <CardHeader
+                        avatar={
+                            <Avatar aria-label="recipe"  ><CreateIcon/> </Avatar>
+                        }
+                        title="ESCRIBIR NUEVA PUBLICACION"
 
+                    />
+                    <form onSubmit={this.AddPostSubmit}>
                         <Grid container spacing={3}>
                             <Grid item xs={2}>
-                                <InputLabel>ESCRIBIR UNO NUEVO </InputLabel>
+
+                                <ImageUploading
+                                    onChange={this.onChange}
+                                    maxNumber={10}
+                                    maxFileSize={5 * 1024 * 1024}
+                                    acceptType={["jpg", "gif", "png"]}
+                                    onError={this.onError}
+                                >
+                                    {({ imageList, onImageUpload, onImageRemoveAll }) => (
+                                        // write your building UI
+                                        <div>
+                                            <Button variant="contained" color="primary" onClick={onImageUpload}><AddPhotoAlternateIcon/> </Button>
+
+                                            {imageList.map((image) => (
+                                                <div key={image.key}>
+                                                    <img width = "50px"  src={image.dataURL} />
+
+                                                    <Button variant="contained" color="primary" onClick={image.onUpdate}>Update</Button>
+                                                    <Button  variant="contained" color="secondary"  onClick={image.onRemove}>Remove</Button>
+
+                                                </div>
+                                            ))}
+                                        </div>
+                                    )}
+                                </ImageUploading>
+
                             </Grid>
                             <Grid item xs={6}>
 
-                                <textarea cols="50" rows="5" value={this.state.value} onChange={this.textPost} />
+                                <textarea cols="60" rows="5" value={this.state.value} onChange={this.textPost} />
                             </Grid>
 
-                            <Button  variant="contained" color="primary"  type="submit"> GUARDAR POST</Button>
+
                         </Grid>
+                        <CardActions >
+                            <Button  variant="contained"  color="primary"  type="submit"> GUARDAR</Button>
+                        </CardActions>
+
                     </form>
-                    <ImageUploading
-                        onChange={this.onChange}
-                        maxNumber={10}
-                        maxFileSize={5 * 1024 * 1024}
-                        acceptType={["jpg", "gif", "png"]}
-                        onError={this.onError}
-                    >
-                        {({ imageList, onImageUpload, onImageRemoveAll }) => (
-                            // write your building UI
-                            <div>
-                                <button onClick={onImageUpload}>Upload images</button>
-                                <button onClick={onImageRemoveAll}>Remove all images</button>
 
-                                {imageList.map((image) => (
-                                    <div key={image.key}>
-                                        <img width = "50px"  src={image.dataURL} />
-
-                                        <Button  variant="contained" color="primary"  onClick={image.onUpdate}>Update</Button>
-                                        <Button  variant="contained" color="secondary"  onClick={image.onRemove}>Remove</Button>
-
-                                    </div>
-                                ))}
-                            </div>
-                        )}
-                    </ImageUploading>
-
-                </div>
+                </Card>
                 <br/>
 
-                <ul>
+                <div>
                     {notes.map(function(note, index){
                          note.value  = note.getString(schema.publicAccess);
                         return <Card key={ index } style={{ maxWidth: 645}} >
@@ -202,7 +214,7 @@ export default class PostCreator extends React.Component {
                         </Card>
 
                     })}
-                </ul>
+                </div>
 
             </div>
         )

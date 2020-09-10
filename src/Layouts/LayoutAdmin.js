@@ -8,7 +8,6 @@ import {Link} from "react-router-dom";
 import auth from "solid-auth-client";
 import HomeIcon from '@material-ui/icons/Home';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
-import RecentActorsIcon from '@material-ui/icons/RecentActors';
 import GroupAddIcon from '@material-ui/icons/GroupAdd';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import PhotoAlbumIcon from '@material-ui/icons/PhotoAlbum';
