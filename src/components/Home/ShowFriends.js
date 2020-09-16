@@ -4,10 +4,10 @@ import data from "@solid/query-ldflex";
 import Button from "@material-ui/core/Button";
 import {Grid} from "@material-ui/core";
 import Card from "@material-ui/core/Card";
-import ShowProfile from "./ShowProfile";
+import ShowProfile from "../ShowProfile";
 import Modal from 'react-awesome-modal';
 import Avatar from "@material-ui/core/Avatar";
-import Helpers  from "../lib/helpers";
+import Helpers  from "../../lib/helpers"
 import AccountBoxIcon from "@material-ui/icons/AccountBox";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import Row from "react-bootstrap/cjs/Row";
@@ -18,7 +18,7 @@ import TextField from "@material-ui/core/TextField";
 import CancelSharpIcon from '@material-ui/icons/CancelSharp';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 
-export default class FriendsInfo extends React.Component {
+export default class ShowFriends extends React.Component {
 
     constructor(props) {
         super(props);
@@ -91,78 +91,76 @@ export default class FriendsInfo extends React.Component {
                 breakpoint: { max: 1024, min: 464 },
                 items: 2
             },
-            mobile: {
-                breakpoint: { max: 464, min: 0 },
-                items: 1
-            }
+
         };
         const {  friends} = this.state;
         const instance = this;
         const modal = (
             <div style={{ maxHeight: 245}}>
-                    <Modal visible={this.state.visible} width="900"
-                           style={{overflow: 'scroll'}}
-                           aria-labelledby="simple-modal-title"
-                           aria-describedby="simple-modal-description"
-                           onClickAway={() => this.closeModal()}>
-                        <div className='right'>
-                            <Button    variant="contained" color="primary" size="large" onClick={this.closeModal}>  <CancelSharpIcon variant="Outlined" /></Button>
+                <Modal visible={this.state.visible} width="900"
+                       style={{overflow: 'scroll'}}
+                       aria-labelledby="simple-modal-title"
+                       aria-describedby="simple-modal-description"
+                       onClickAway={() => this.closeModal()}>
+                    <div className='right'>
+                        <Button    variant="contained" color="primary" size="large" onClick={this.closeModal}>  <CancelSharpIcon variant="Outlined" /></Button>
 
-                        </div>
-                        <div>
-                            <ShowProfile webId={this.state.modalWebId} />
-                            </div>
-                    </Modal>
+                    </div>
+                    <div>
+                        <ShowProfile webId={this.state.modalWebId} />
+                    </div>
+                </Modal>
             </div>
         )
 
         return (
-            <div  style={{ maxWidth: 560}}>
+            <div className=" container post-topbar" >
 
-                    <div className="container">
-                        <div className="search-box">
-                            <form onSubmit={this.AddFriendSubmit} >
-                                <input type="text" placeholder="WebId" value={this.state.value} onChange={this.webIdNewFriend}/>
-                                    <button type="submit">AGREGAR</button>
-                            </form>
-                        </div>
+                <div >
+                    <div className=" search-box">
+                        <form onSubmit={this.AddFriendSubmit} >
+                            <input type="text" placeholder="WebId" value={this.state.value} onChange={this.webIdNewFriend}/>
+                            <button type="submit">AGREGAR</button>
+                        </form>
                     </div>
+                </div>
 
 
-                        <Grid container>
-                        </Grid>
+                <Grid container>
+                </Grid>
 
 
                 <br/><br/>
-                    <Carousel responsive={responsive}>
-                    {friends.map(function(friend, index){
-                        return <div key={ index } >
-                            <div  className="profiles-slider">
-                                <Avatar  style ={{  height :"7rem" ,width: "7rem" }} src={friend.img} >  </Avatar>
-                            {friend.name}
+                <div className="companies-list">
+                    <div className="row">
+                        {friends.map(function(friend, index){
+                            return <div key={ index } className={"col-lg-4 col-md-4 col-sm-6 col-12"}>
+                                <div className="company_profile_info">
+                                    <Avatar  style ={{  height :"7rem" ,width: "7rem" }} src={friend.img} >  </Avatar>
+                                    {friend.name}
+                                    <div className="row">
+                                        <div className="col">
+                                            <Button  color="primary" size="small" href={friend.webId} target="_blank"><AccountBoxIcon/> POD</Button>
+                                        </div>
+                                        <div className="col"> <Button  color="secondary" size="small"  onClick={()=> instance.removeFriend(friend.webId.toString())}><DeleteForeverIcon/></Button>
+                                        </div>
+                                    </div>
 
-                                <div className="row">
-
-                                        <Button  color="primary" size="small" href={friend.webId} target="_blank"><AccountBoxIcon/> POD</Button>
 
 
-                                        <Button  color="secondary" size="small"  onClick={()=> instance.removeFriend(friend.webId.toString())}><DeleteForeverIcon/></Button>
-
-                                  </div>
-
-
-                                <div className="user-profy">
-                                    <a href="#" title="">
-                                        <Button color="primary" size="small"  onClick={() =>instance.openModal(friend.webId.toString())}> <VerticalSplitIcon/>VER PERFIL</Button>
-                                    </a>
+                                    <div className="user-profy">
+                                        <a href="#" title="">
+                                            <Button color="primary" size="small"  onClick={() =>instance.openModal(friend.webId.toString())}> <VerticalSplitIcon/>VER PERFIL</Button>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
-                            </div>
+
+                        })}
 
 
-                    })}
-                    </Carousel>
-
+                    </div>
+                </div>
 
 
 

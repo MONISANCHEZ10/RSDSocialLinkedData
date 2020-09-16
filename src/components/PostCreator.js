@@ -15,6 +15,7 @@ import ImageUploading from "react-images-uploading";
 import AddPhotoAlternateIcon from '@material-ui/icons/AddPhotoAlternate';
 const $rdf = require('rdflib')
 const FC   = require('solid-file-client')
+import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 const fc   = new FC( auth )
 import CreateIcon from '@material-ui/icons/Create';
 import * as session from "solid-auth-cli";
@@ -119,102 +120,111 @@ export default class PostCreator extends React.Component {
 
 
         return (
-            <div>
-                <Card style={{ maxWidth: 645}} >
-                    <CardHeader
-                        avatar={
-                            <Avatar aria-label="recipe"  ><CreateIcon/> </Avatar>
-                        }
-                        title="ESCRIBIR NUEVA PUBLICACION"
+            <div className="row">
+                <div className="col-4">
+                    <div className="post-topbar">
+                        <div >
+                            <Card className="post-bar"  >
+                                <CardHeader
+                                    avatar={
+                                        <Avatar aria-label="recipe"  ><CreateIcon/> </Avatar>
+                                    }
+                                    title="ESCRIBIR NUEVA PUBLICACION"
+                                />
+                                <form onSubmit={this.AddPostSubmit}>
+                                    <Grid container spacing={3}>
+                                        <Grid item xs={6}>
+                                            <textarea cols="35" rows="5" value={this.state.value} onChange={this.textPost} />
+                                        </Grid>
+                                    </Grid>
+                                    <div className="row">
+                                        <div className="col">         <ImageUploading
+                                            onChange={this.onChange}
+                                            maxNumber={10}
+                                            maxFileSize={5 * 1024 * 1024}
+                                            acceptType={["jpg", "gif", "png"]}
+                                            onError={this.onError}
+                                        >
+                                            {({ imageList, onImageUpload, onImageRemoveAll }) => (
+                                                // write your building UI
+                                                <div>
+                                                    <Button variant="contained" color="primary" onClick={onImageUpload}><AddPhotoAlternateIcon/> </Button>
 
-                    />
-                    <form onSubmit={this.AddPostSubmit}>
-                        <Grid container spacing={3}>
-                            <Grid item xs={2}>
+                                                    {imageList.map((image) => (
+                                                        <div key={image.key}>
+                                                            <img width = "50px"  src={image.dataURL} />
 
-                                <ImageUploading
-                                    onChange={this.onChange}
-                                    maxNumber={10}
-                                    maxFileSize={5 * 1024 * 1024}
-                                    acceptType={["jpg", "gif", "png"]}
-                                    onError={this.onError}
-                                >
-                                    {({ imageList, onImageUpload, onImageRemoveAll }) => (
-                                        // write your building UI
-                                        <div>
-                                            <Button variant="contained" color="primary" onClick={onImageUpload}><AddPhotoAlternateIcon/> </Button>
+                                                            <Button variant="contained" color="primary" onClick={image.onUpdate}>Update</Button>
+                                                            <Button  variant="contained" color="secondary"  onClick={image.onRemove}>Remove</Button>
 
-                                            {imageList.map((image) => (
-                                                <div key={image.key}>
-                                                    <img width = "50px"  src={image.dataURL} />
-
-                                                    <Button variant="contained" color="primary" onClick={image.onUpdate}>Update</Button>
-                                                    <Button  variant="contained" color="secondary"  onClick={image.onRemove}>Remove</Button>
-
+                                                        </div>
+                                                    ))}
                                                 </div>
-                                            ))}
-                                        </div>
-                                    )}
-                                </ImageUploading>
-
-                            </Grid>
-                            <Grid item xs={6}>
-
-                                <textarea cols="60" rows="5" value={this.state.value} onChange={this.textPost} />
-                            </Grid>
+                                            )}
+                                        </ImageUploading></div>
+                                        <div className="col">  <Button  variant="contained"  color="primary"  type="submit"> GUARDAR</Button></div>
+                                    </div>
 
 
-                        </Grid>
-                        <CardActions >
-                            <Button  variant="contained"  color="primary"  type="submit"> GUARDAR</Button>
-                        </CardActions>
+                                </form>
+                            </Card>
+                        </div>
+                    </div>
 
-                    </form>
-
-                </Card>
-                <br/>
-
-                <div>
-                    {notes.map(function(note, index){
-                         note.value  = note.getString(schema.publicAccess);
-                        return <Card key={ index } style={{ maxWidth: 645}} >
-                            <CardHeader
-                                avatar={
-                                    <Avatar aria-label="recipe"  ><TurnedInIcon/> </Avatar>
-                                }
-                                title={note.getString(schema.additionalName)}
-                                subheader={ note.getString(schema.dateCreated)}
-                            />
-                            {note.getRef(schema.image) !== null &&
-                            <CardMedia
-                                style={{height: 0, paddingTop: '46.25%'}}
-                                image={note.getRef(schema.image)}
-                                title="Paella dish"
-                            />
-                            }
-                            <CardContent>
-                                <Typography variant="body2" color="textSecondary" component="p">
-                                    {note.getString(schema.text)}
-                                </Typography>
-                            </CardContent>
-                            <CardActions >
-                                <Button variant="outlined" color="primary" onClick={()=> instance.deleteNote(note)}>ELiminar</Button>
-
-                                <FormControl component="fieldset">
-                                    <FormLabel component="legend">Visible para</FormLabel>
-                                    <RadioGroup aria-label="gender" name="gender1" value={  note.value } onChange={instance.handleChange}>
-                                        <FormControlLabel value="public"  name={note.getString(schema.additionalName)} control={<Radio />}  label="Público" ><PublicIcon/></FormControlLabel>
-                                        <FormControlLabel value="onlyme" name={note.getString(schema.additionalName)} control={<Radio />} label="Solo yo" />
-                                        <FormControlLabel value="friends" name={note.getString(schema.additionalName)}  control={<Radio />} label="Mis Amigos" />
-                                    </RadioGroup>
-                                </FormControl>
-
-                                
-                            </CardActions>
-                        </Card>
-
-                    })}
                 </div>
+                <div className="col-8">
+
+
+                <div className="post-topbar">
+
+                                {notes.map(function(note, index){
+                                    note.value  = note.getString(schema.publicAccess);
+                                    return <Card key={ index }  >
+                                        <CardHeader
+                                            avatar={
+                                                <Avatar aria-label="recipe"  ><TurnedInIcon/> </Avatar>
+                                            }
+                                            title={note.getString(schema.additionalName)}
+                                            subheader={ note.getString(schema.dateCreated)}
+                                        />
+                                        {note.getRef(schema.image) !== null &&
+                                        <CardMedia
+                                            style={{height: 0, paddingTop: '46.25%'}}
+                                            image={note.getRef(schema.image)}
+                                            title="Paella dish"
+                                        />
+                                        }
+                                        <CardContent>
+                                            <Typography variant="body2" color="textSecondary" component="p">
+                                                {note.getString(schema.text)}
+                                            </Typography>
+                                        </CardContent>
+                                        <CardActions >
+                                            <Button  color="secondary" size="large" onClick={()=> instance.deleteNote(note)}><DeleteForeverIcon/></Button>
+
+                                            <FormControl component="fieldset">
+                                                <FormLabel component="legend">Visible para</FormLabel>
+                                                <RadioGroup aria-label="gender" name="gender1" value={  note.value } onChange={instance.handleChange}>
+                                                    <div className="row">
+                                                        <div className="col"><FormControlLabel value="public"  name={note.getString(schema.additionalName)} control={<Radio />}  label="Público" ><PublicIcon/></FormControlLabel>
+                                                        </div>
+                                                        <div className="col">  <FormControlLabel value="onlyme" name={note.getString(schema.additionalName)} control={<Radio />} label="Privado" />
+                                                        </div>
+                                                        <div className="col"> <FormControlLabel value="friends" name={note.getString(schema.additionalName)}  control={<Radio />} label="Amigos" />
+                                                        </div>
+                                                    </div>
+                                                    </RadioGroup>
+                                            </FormControl>
+
+
+                                        </CardActions>
+                                    </Card>
+
+                                })}
+
+                </div>
+                </div>
+
 
             </div>
         )

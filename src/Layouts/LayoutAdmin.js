@@ -3,6 +3,7 @@ import {Redirect, useHistory} from 'react-router';
 import 'jquery'
 import 'bootstrap'
 import imgAvatar from '../assets/images/people.png'
+import logo from '../assets/images/logo.png'
 import style from './LayoutAdmin.css'
 import {Link} from "react-router-dom";
 import auth from "solid-auth-client";
@@ -14,6 +15,8 @@ import PhotoAlbumIcon from '@material-ui/icons/PhotoAlbum';
 import PostAddIcon from '@material-ui/icons/PostAdd';
 import ChatIcon from '@material-ui/icons/Chat';
 import InfoIcon from '@material-ui/icons/Info';
+import PostManager from "../components/PostManager";
+import Col from "react-bootstrap/Col";
 
 
 export default function LayoutAdmin(props) {
@@ -40,95 +43,67 @@ export default function LayoutAdmin(props) {
 
         return (
 
-
-
             <div>
 
-                <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
-                    <a className="navbar-brand" href="#">SOLID REACT</a>
+                <nav className="header-data  navbar-expand-lg navbar-light ">
+                    <div className="logo">
+                        <Link  to="/home"> <img src={logo} />  </Link>
+                    </div>
+
                     <button className="navbar-toggler" type="button" data-toggle="collapse"
-                            data-target="#navbarColor01" aria-controls="navbarColor01"
+                            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
 
-
-                    <div className="collapse navbar-collapse " id="navbarColor01">
-                        <ul className="navbar-nav mr-auto ">
-
-                        </ul>
-
-                        <ul className="nav  navbar-right">
-                            <li className="nav-item dropdown ">
-
-                                    <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <img className="image-avatar" src={imgAvatar} />
-                                    </a>
-                                    <li >
-                                        <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                            <a className="dropdown-item" href="#" onClick={logout}>Logout</a>
-                                        </div>
-                                    </li>
-                            </li>
-                        </ul>
-
-
-
-
-
-                    </div>
-
-
-                </nav>
-
-                <div className="row" style={heightContent}>
-
-                    <div className="col-2  navbar-dark bg-primary sidebar">
-
-                        <ul className="menu-admin">
-                            <li>
+                    <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul className="navbar-nav mr-auto">
+                            <li className="nav-item">
                                 <Link to="/home"><HomeIcon/>  INICIO </Link>
                             </li>
-                            <li>
+                            <li className="nav-item">
                                 <Link to="/profile"><EditOutlinedIcon/> PERFIL</Link>
                             </li>
-                            <li>
+                            <li className="nav-item">
                                 <Link to="/show-profile"><AccountBoxIcon/> MI PERFIL</Link>
                             </li>
-                            <li>
+                            <li className="nav-item">
                                 <Link to="/friends"><GroupAddIcon/> AMIGOS</Link>
                             </li>
-                            <li>
+                            <li className="nav-item">
                                 <Link to="/posts"><PhotoAlbumIcon/> GALERIA</Link>
                             </li>
-                            <li>
+                            <li className="nav-item">
                                 <Link to="/postpriv"><PostAddIcon/> PUBLICACIONES</Link>
-                            </li>
-                            <li>
-                                <Link to="/chat"><ChatIcon/> CHAT</Link>
-                            </li>
-                            <li>
+
+                        </li>
+                                {/* <li className="nav-item">*/}
+                                {/* <Link to="/chat"><ChatIcon/> CHAT</Link>*/}
+                                {/*</li>*/}
+
+                            <li className="nav-item">
                                 <Link to="/about"><InfoIcon/> INFO</Link>
                             </li>
                         </ul>
+                        <ul className="nav  navbar-right">
+                                <li className="nav-item">
+                                    <a  href="#" onClick={logout}>SALIR</a>
+                                </li>
 
-
+                        </ul>
                     </div>
+                </nav>
 
-                    <div className="col-10">
-
-                        <div className="content-panel">
-
-
-
-                            {props.children}
-
-
-                        </div>
-
+                <div className="container" >
+                    <br/> <br/>
+                    <div className="col-12 post-comment-box">
+                           {props.children}
                     </div>
 
                 </div>
+                {/* <footer className=" wrapper footy-sec"></footer>*/}
+
+
 
 
             </div>

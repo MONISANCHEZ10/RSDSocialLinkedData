@@ -7,9 +7,7 @@ import PostManager from "../components/PostManager";
 const Posts = () => (
     <div>
         <PostManager />
-        <Footer />
-
-    </div>
+     </div>
 )
 
 export default Posts

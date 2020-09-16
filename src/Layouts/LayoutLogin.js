@@ -3,6 +3,7 @@ import {Redirect} from 'react-router';
 import 'jquery'
 import 'bootstrap'
 import imgLogin from '../assets/images/login-icon.png'
+import logo from '../assets/images/logo.png'
 import './../assets/css/login.css'
 
 export default class LayoutLogin extends Component {
@@ -21,15 +22,15 @@ export default class LayoutLogin extends Component {
 
         return (
 
-            <div className="container">
-
-                <h2 className="text-center">BIENVENIDO RSD TODAY</h2>
+            <div className="container  ">
+<div className="login-dt footy-sec">
+                <h4 className="text-center">BIENVENIDO </h4>
 
                 <div className="wrapper fadeInDown">
                     <div id="formContent">
 
                         <div className="fadeIn first">
-                            <img src={imgLogin} id="icon" alt="User Icon"/>
+                            <img src={logo} id="icon" alt="User Icon"/>
                         </div>
 
 
@@ -52,7 +53,7 @@ export default class LayoutLogin extends Component {
             </div>
 
             </div>
-
+            </div>
         );
     }
 

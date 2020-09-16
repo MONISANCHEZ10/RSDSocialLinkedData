@@ -36,7 +36,7 @@ D:.
 │       LayoutAdmin.scss
 │       LayoutLogin.js
 └───pages
-        Friends.js
+        ShowFriends.js
         Home.js
         Login.js
         Posts.js

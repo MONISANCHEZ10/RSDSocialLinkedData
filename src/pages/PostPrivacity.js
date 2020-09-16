@@ -7,8 +7,6 @@ import PostCreator from "../components/PostCreator";
 const PostsPrivacity = () => (
     <div>
         <PostCreator/>
-        <Footer />
-
     </div>
 )
 

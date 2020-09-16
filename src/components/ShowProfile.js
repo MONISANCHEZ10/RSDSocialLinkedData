@@ -77,45 +77,52 @@ export default class ShowProfile extends React.Component {
         const { webId } = this.state;
         return (
             <div>
-                <Card  className={{ maxWidth: 845}}>
-                    <CardHeader
-                        avatar={
-                            <Avatar aria-label="recipe"  style ={{  height :"10rem" ,width: "10rem" }} src={this.state.image} >  </Avatar>
-                        }
-                        title={this.state.fn}
-                    />
-                    <CardContent>
-                        <Grid container spacing={2}>
-                            <Grid item >
-                                <InputLabel className='label'>WEB ID: </InputLabel>
-                                <TextField className='input-label' variant="outlined"   style = {{  width: '56ch' }} value={webId} disabled/>
-                                <InputLabel className='label'>SOBRE MI:</InputLabel>
-                                <TextField className='input-label' variant="outlined"   style = {{  width: '56ch' }} value={this.state.note} disabled/>
-                                <InputLabel className='label'>EMAIL:</InputLabel>
-                                <TextField className='input-label' variant="outlined"   style = {{  width: '56ch' }} value={this.state.email} disabled/>
-                                <InputLabel className='label'>COMPANIA:</InputLabel>
-                                <TextField className='input-label' variant="outlined"   style = {{  width: '56ch' }} value={this.state.company} disabled/>
-                                <InputLabel className='label'>DIRECCION:</InputLabel>
-                                <TextField className='input-label' variant="outlined"   style = {{  width: '56ch' }} value={this.state.address} disabled/>
-                            </Grid>
-                            <Grid item >
-                                <InputLabel className='label'>TELEFONO:</InputLabel>
-                                <TextField className='input-label' variant="outlined"   style = {{  width: '56ch' }} value={this.state.phone} disabled/>
-                                <InputLabel className='label'>PAIS:</InputLabel>
-                                <TextField className='input-label' variant="outlined"   style = {{  width: '56ch' }} value={this.state.country} disabled/>
-                                <InputLabel className='label'>CODIGO POSTAL:</InputLabel>
-                                <TextField className='input-label' variant="outlined"   style = {{  width: '56ch' }} value={this.state.postalCode} disabled/>
-                                <InputLabel className='label'>REGION:</InputLabel>
-                                <TextField className='input-label' variant="outlined"   style = {{  width: '56ch' }} value={this.state.region} disabled/>
-                                <InputLabel className='label'>LOCALIDAD: </InputLabel>
-                                <TextField className='input-label' variant="outlined"   style = {{  width: '56ch' }} value={this.state.locality} disabled/>
+
+                <div className="post-topbar">
+                    <div className="post-st">
+                        <Card  className={{ maxWidth: 845}}>
+                            <CardHeader
+                                avatar={
+                                    <Avatar aria-label="recipe"  style ={{  height :"10rem" ,width: "10rem" }} src={this.state.image} >  </Avatar>
+                                }
+                                title={this.state.fn}
+                            />
+                            <CardContent>
+                                <Grid container spacing={2}>
+                                    <Grid item >
+                                        <InputLabel className='label'>WEB ID: </InputLabel>
+                                        <TextField className='input-label' variant="outlined" size="small"  style = {{  width: '56ch' }} value={webId} disabled/>
+                                        <InputLabel className='label'>SOBRE MI:</InputLabel>
+                                        <TextField className='input-label' variant="outlined"  size="small"  style = {{  width: '56ch' }} value={this.state.note} disabled/>
+                                        <InputLabel className='label'>EMAIL:</InputLabel>
+                                        <TextField className='input-label' variant="outlined"  size="small"  style = {{  width: '56ch' }} value={this.state.email} disabled/>
+                                        <InputLabel className='label'>COMPANIA:</InputLabel>
+                                        <TextField className='input-label' variant="outlined"  size="small" style = {{  width: '56ch' }} value={this.state.company} disabled/>
+                                        <InputLabel className='label'>DIRECCION:</InputLabel>
+                                        <TextField className='input-label' variant="outlined"  size="small" style = {{  width: '56ch' }} value={this.state.address} disabled/>
+                                    </Grid>
+                                    <Grid item >
+                                        <InputLabel className='label'>TELEFONO:</InputLabel>
+                                        <TextField className='input-label' variant="outlined" size="small"  style = {{  width: '56ch' }} value={this.state.phone} disabled/>
+                                        <InputLabel className='label'>PAIS:</InputLabel>
+                                        <TextField className='input-label' variant="outlined" size="small"  style = {{  width: '56ch' }} value={this.state.country} disabled/>
+                                        <InputLabel className='label'>CODIGO POSTAL:</InputLabel>
+                                        <TextField className='input-label' variant="outlined"  size="small"  style = {{  width: '56ch' }} value={this.state.postalCode} disabled/>
+                                        <InputLabel className='label'>REGION:</InputLabel>
+                                        <TextField className='input-label' variant="outlined" size="small"  style = {{  width: '56ch' }} value={this.state.region} disabled/>
+                                        <InputLabel className='label'>LOCALIDAD: </InputLabel>
+                                        <TextField className='input-label' variant="outlined" size="small"  style = {{  width: '56ch' }} value={this.state.locality} disabled/>
+
+                                    </Grid>
+                                </Grid>
+                            </CardContent>
+
+                        </Card>
+
+                    </div>
+                </div>
 
 
-                            </Grid>
-                        </Grid>
-                    </CardContent>
-
-                </Card>
             </div>
         )
     }

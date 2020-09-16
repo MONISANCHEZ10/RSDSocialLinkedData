@@ -51,6 +51,30 @@ export default class MyProfile extends React.Component {
 
         return (
             <div>
+
+                <div className="user-data full-width">
+                    <div className="user-profile">
+                        <div className="username-dt">
+                            <div className="usr-pic">
+                                <img  src={this.state.image} alt="Photo profile"/>
+                            </div>
+                        </div>
+                        <div className="user-specs">
+                            <h5>{ this.state.fn}</h5>
+                            <h6> {this.state.country}</h6>
+                        </div>
+                    </div>
+                    <ul className="user-fw-status">
+                        <li>
+                            <p>{ this.state.note}</p>
+                            <Button variant="outlined" color="primary" href={webId} target="_blank"><AccountBoxIcon/> MI POD</Button>
+                        </li>
+                    </ul>
+                </div>
+
+
+
+
                 <Card  style={{ maxWidth: 245}}>
                     <CardHeader
                         avatar={
@@ -63,8 +87,7 @@ export default class MyProfile extends React.Component {
                         <Typography variant="caption" display="block" gutterBottom>
                             {this.state.fn}<br/>
                             {this.state.country}<br/>
-                            <Button variant="outlined" color="primary" href={webId} target="_blank"><AccountBoxIcon/> MI POD</Button>
-                         </Typography>
+                          </Typography>
                     </CardContent>
                 </Card>
             </div>

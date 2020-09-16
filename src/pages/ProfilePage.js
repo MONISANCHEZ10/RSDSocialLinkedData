@@ -4,7 +4,7 @@ import Profile from "../components/EditProfile";
 
 const ProfilePage = () => (
     <div>
-        <PersonalInfo />
+
         <Profile />
 
     </div>

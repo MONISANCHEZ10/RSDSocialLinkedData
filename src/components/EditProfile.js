@@ -162,88 +162,100 @@ export default class EditProfile extends React.Component {
         return (
             <div>
 
-                <form onSubmit={this.handleSave}>
+                <div className="post-topbar">
+                    <div className="post-st">
+                        <ul>
+                            <form onSubmit={this.handleSave}>
 
-                    <div className={{  flexGrow: 1}}>
-                        <Grid container spacing={3} className='label'>
+                                <div className={{  flexGrow: 1}}>
+                                    <Grid container spacing={3} className='label'>
 
-                            <Grid item xs={12} sm={6}>
-                                <Avatar aria-label="recipe"  style ={{  height :"10rem" ,width: "10rem" }} src={this.state.image} >  </Avatar>
-                                <ImageUploading
-                                    onChange={this.onChange}
-                                    maxNumber={10}
-                                    multiple
-                                    maxFileSize={5 * 1024 * 1024}
-                                    acceptType={["jpg", "gif", "png"]}
-                                    onError={this.onError}
-                                >
-                                    {({  onImageUpload }) => (
+                                        <Grid item xs={12} sm={6}>
+                                            <Avatar aria-label="recipe"  style ={{  height :"10rem" ,width: "10rem" }} src={this.state.image} >  </Avatar>
+                                            <ImageUploading
+                                                onChange={this.onChange}
+                                                maxNumber={10}
+                                                multiple
+                                                maxFileSize={5 * 1024 * 1024}
+                                                acceptType={["jpg", "gif", "png"]}
+                                                onError={this.onError}
+                                            >
+                                                {({  onImageUpload }) => (
 
-                                        <div>
-                                            <Button onClick={onImageUpload} variant="contained" size="small" color="primary" > <WallpaperIcon/> &nbsp; ACTUALIZAR</Button>
-                                        </div>
-                                    )}
-                                </ImageUploading>
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <InputLabel className='label'>NOMBRE DE USUARIO</InputLabel>
-                                <TextField className='input-label' type="text" variant="outlined"   style = {{  width: '56ch' }} value={this.state.fn} onChange={this.webIdNewFriend} />
+                                                    <div>
+                                                        <Button onClick={onImageUpload} variant="contained" size="small" color="primary" > <WallpaperIcon/> &nbsp; ACTUALIZAR</Button>
+                                                    </div>
+                                                )}
+                                            </ImageUploading>
+                                        </Grid>
+                                        <Grid item xs={12} sm={6}>
+                                            <InputLabel className='label' size="small">NOMBRE DE USUARIO</InputLabel>
+                                            <TextField className='input-label' size="small" type="text" variant="outlined"   style = {{  width: '56ch' }} value={this.state.fn} onChange={this.webIdNewFriend} />
+                                            <br/><br/>
+                                            <InputLabel className='label' size="small" >SOBRE MI</InputLabel>
+                                            <TextareaAutosize className='input-label' variant="outlined"  aria-label="height" style = {{  width: '60ch' }} rowsMin={3} placeholder="Minimum 3 rows" value={this.state.note} onChange={this.inputNote}/>
+                                        </Grid>
+                                    </Grid>
+                                </div>
+
                                 <br/><br/>
-                                <InputLabel className='label' >SOBRE MI</InputLabel>
-                                <TextareaAutosize className='input-label' variant="outlined"  aria-label="height" style = {{  width: '56ch' }} rowsMin={3} placeholder="Minimum 3 rows" value={this.state.note} onChange={this.inputNote}/>
-                            </Grid>
-                        </Grid>
+                                <div className={{  flexGrow: 7}}>
+                                    <Grid container spacing={2}>
+                                        <Grid item >
+                                            <InputLabel className='label' size="small">EMAIL:</InputLabel>
+                                            <TextField type="email" size="small" disabled={readonlyValue} className='input-label' variant="outlined" style = {{  width: '56ch' }}     value={this.state.email} onChange={this.inputEmail} />
+                                            <br/><br/>
+                                            <InputLabel className='label' size="small">DIRECCION:</InputLabel>
+                                            <TextField type="text" size="small" className='input-label' variant="outlined" style = {{  width: '56ch' }}   value={this.state.address} onChange={this.inputAddress} />
+                                            <br/><br/>
+                                            <InputLabel className='label' size="small">COMPANIA:</InputLabel>
+                                            <TextField type="text" size="small"  className='input-label' variant="outlined"  style = {{  width: '56ch' }}  value={this.state.company} onChange={this.inputCompany} />
+
+                                        </Grid>
+                                        <Grid item >
+                                            <InputLabel className='label' size="small">ROLE: </InputLabel>
+                                            <TextField type="text"  size="small" className='input-label' variant="outlined"  style = {{  width: '46ch' }}  value={this.state.role} onChange={this.inputRole} />
+                                            <br/><br/>
+                                            <InputLabel className='label' size="small">LOCALIDAD:</InputLabel>
+                                            <TextField type="text" size="small"  className='input-label' variant="outlined"  style = {{  width: '46ch' }}  value={this.state.locality} onChange={this.inputLocality} />
+                                            <br/><br/>
+                                            <InputLabel className='label' size="small">REGION:</InputLabel>
+                                            <TextField type="text" size="small"  className='input-label' variant="outlined"  style = {{  width: '46ch' }}    defaultValue="Normal" value={this.state.region} onChange={this.inputRegion} />
+
+                                        </Grid>
+                                        <Grid item>
+                                            <InputLabel className='label' size="small">TELEFONO:</InputLabel>
+                                            <TextField type="tel" size="small" className='input-label' variant="outlined"   pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"  placeholder="123-45-678"
+                                                       value={this.state.phone} onChange={this.inputPhone} />
+                                            <br/><br/>
+                                            <InputLabel className='label' size="small">CODIGO POSTAL:</InputLabel>
+                                            <TextField type="text" size="small"  className='input-label' variant="outlined"  value={this.state.postalCode} onChange={this.inputPostalCode} />
+                                            <br/><br/>
+                                            <InputLabel className='label' size="small">PAIS:</InputLabel>
+                                            <TextField type="text"  size="small" className='input-label' variant="outlined"  value={this.state.country} onChange={this.inputCountry} />
+
+                                        </Grid>
+                                    </Grid>
+                                </div>
+                                <br/><br/>
+                                <Grid>
+                                    <Button  type="submit"  className="post-jb active" variant="contained"  size="small"  > <CloudUploadIcon/> &nbsp; GUARDAR</Button>
+                                </Grid>
+
+                                <MyBackdrop open={this.state.showSpinner} onClick={this.handleClose.bind(this)}>
+                                    <CircularProgress color="inherit" />
+                                </MyBackdrop>
+
+                            </form>
+
+                        </ul>
                     </div>
 
-                    <br/><br/>
-                    <div className={{  flexGrow: 7}}>
-                        <Grid container spacing={2}>
-                            <Grid item >
-                                <InputLabel className='label'>EMAIL:</InputLabel>
-                                <TextField type="email" disabled={readonlyValue} className='input-label' variant="outlined" style = {{  width: '56ch' }}     value={this.state.email} onChange={this.inputEmail} />
-                                <br/><br/>
-                                <InputLabel className='label'>DIRECCION:</InputLabel>
-                                <TextField type="text"  className='input-label' variant="outlined" style = {{  width: '56ch' }}   value={this.state.address} onChange={this.inputAddress} />
-                                <br/><br/>
-                                <InputLabel className='label'>COMPANIA:</InputLabel>
-                                <TextField type="text"  className='input-label' variant="outlined"  style = {{  width: '56ch' }}  value={this.state.company} onChange={this.inputCompany} />
+                </div>
 
-                            </Grid>
-                            <Grid item >
-                                <InputLabel className='label'>ROLE: </InputLabel>
-                                <TextField type="text"  className='input-label' variant="outlined"  style = {{  width: '46ch' }}  value={this.state.role} onChange={this.inputRole} />
-                                <br/><br/>
-                                <InputLabel className='label'>LOCALIDAD:</InputLabel>
-                                <TextField type="text"   className='input-label' variant="outlined"  style = {{  width: '46ch' }}  value={this.state.locality} onChange={this.inputLocality} />
-                                <br/><br/>
-                                <InputLabel className='label'>REGION:</InputLabel>
-                                <TextField type="text"  className='input-label' variant="outlined"  style = {{  width: '46ch' }}  size="large"  defaultValue="Normal" value={this.state.region} onChange={this.inputRegion} />
 
-                            </Grid>
-                            <Grid item>
-                                <InputLabel className='label'>TELEFONO:</InputLabel>
-                                <TextField type="tel"  className='input-label' variant="outlined"   pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"  placeholder="123-45-678"
-                                           value={this.state.phone} onChange={this.inputPhone} />
-                                <br/><br/>
-                                <InputLabel className='label'>CODIGO POSTAL:</InputLabel>
-                                <TextField type="text"   className='input-label' variant="outlined"  value={this.state.postalCode} onChange={this.inputPostalCode} />
-                                <br/><br/>
-                                <InputLabel className='label'>PAIS:</InputLabel>
-                                <TextField type="text"   className='input-label' variant="outlined"  value={this.state.country} onChange={this.inputCountry} />
 
-                            </Grid>
-                        </Grid>
-                    </div>
-                    <br/><br/>
-                    <Grid>
-                        <Button  type="submit"  variant="contained" color="primary" size="small"  > <CloudUploadIcon/> &nbsp; GUARDAR</Button>
-                    </Grid>
 
-                    <MyBackdrop open={this.state.showSpinner} onClick={this.handleClose.bind(this)}>
-                        <CircularProgress color="inherit" />
-                    </MyBackdrop>
-
-                </form>
 
             </div>
         )

@@ -18,6 +18,7 @@ const FC   = require('solid-file-client')
 const fc   = new FC( auth )
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import UpdateIcon from '@material-ui/icons/Update';
+import TextField from "@material-ui/core/TextField";
 
 
 
@@ -185,7 +186,8 @@ export default class PostManager extends React.Component {
 
     async onChange  (imageList) {
         console.log("IMAGE ....")
-        this.state.fileImge = imageList[0] === undefined? null : imageList[0]
+        this.state.fileImge = imageList[0] === undefined? null : imageList[0];
+
     };
 
     onError  (errors, files) {
@@ -202,75 +204,84 @@ export default class PostManager extends React.Component {
 
         return (
             <div>
-                GALERIA
-            <Container component="main"  >
-                    <ImageUploading
-                        onChange={this.onChange}
-                        maxNumber={1}
-                        maxFileSize={5 * 1024 * 1024}
-                        acceptType={["jpg", "gif", "png"]}
-                        onError={this.onError}
-                    >
-                        {({ imageList, onImageUpload, onImageRemoveAll }) => (
-                            // write your building UI
-                            <div>
-                                <Button variant="contained" color="primary" onClick={onImageUpload}>Nueva Foto</Button>
 
-                                {imageList.map((image) => (
-                                    <div key={image.key}>
-                                        <img width = "200rem"  src={image.dataURL} />
-                                        <Button variant="contained" color="primary" onClick={image.onUpdate}><UpdateIcon/></Button>
-                                        <Button variant="contained" color="secondary" onClick={image.onRemove}><DeleteForeverIcon /></Button>
-                                        <form onSubmit={this.AddPostSubmit} style={{ maxWidth: 245}}>
-                                                    <InputLabel>Pie de Foto: </InputLabel>
-                                                    <textarea cols="25" rows="2"  value={this.state.value} onChange={this.textPost} />
-                                                    <Button  variant="contained" color="primary" size="large" type="submit"> GUARDAR</Button>
-                                        </form>
+                <div className="post-topbar"  style = {{  width: '35ch' }} >
+                    <div className="post-st" style = {{  width: '30ch' }}>
+                        <ul>
+                            GALERIA
+                            <Container component="main"  >
+                                <ImageUploading
+                                    onChange={this.onChange}
+                                    maxNumber={1}
+                                    maxFileSize={5 * 1024 * 1024}
+                                    acceptType={["jpg", "gif", "png"]}
+                                    onError={this.onError}
+                                >
+                                    {({ imageList, onImageUpload, onImageRemoveAll }) => (
+                                        // write your building UI
+                                        <div>
+                                            <Button variant="outlined" color="primary" onClick={onImageUpload}>NUEVA FOTO</Button>
 
-                                    </div>
-                                ))}
+                                            {imageList.map((image) => (
+                                                <div key={image.key}>
+                                                    <img width = "150rem"  src={image.dataURL} />
+                                                    <Button variant="outlined" color="primary" size="small" onClick={image.onUpdate}><UpdateIcon/></Button>
+                                                    <Button variant="outlined" color="secondary" size="small" onClick={image.onRemove}><DeleteForeverIcon /></Button>
+                                                    <form onSubmit={this.AddPostSubmit} style={{ maxWidth: 245}}>
+                                                        <textarea cols="25" rows="2"  value={this.state.value} onChange={this.textPost} />
+                                                        <Button  variant="outlined" color="primary" size="small" type="submit"> GUARDAR</Button>
+                                                    </form>
 
-
-                            </div>
-                        )}
-                    </ImageUploading>
-
-                <br/>
-
-                <ul>
-
-                    {notes.reverse().map(function(note, index){
-                        return <Card key={ index } style={{ maxWidth: 245}} >
-                            <CardHeader
-                             //   title=  {note.getString(schema.text)}
-                                subheader={ note.getString(schema.dateCreated)}
-                            />
-                            {note.getRef(schema.image) !== null &&
-                            <CardMedia
-                                style={{height: 0, paddingTop: '56.25%'}}
-                                image={note.getRef(schema.image)}
-                                title="Paella dish"
-                            />
-                            }
-                            <CardContent>
-                                <Typography variant="body2" color="textSecondary" component="p">
-                                    {note.getString(schema.text)}
-                                </Typography>
-                            </CardContent>
-                            <CardActions >
-                                <Button variant="outlined" color="secondary" onClick={()=> instance.deleteNote(note)}><DeleteForeverIcon/></Button>
-                            </CardActions>
-                        </Card>
-
-                    })}
-                </ul>
+                                                </div>
+                                            ))}
 
 
-                <MyBackdrop open={this.state.showSpinner} onClick={this.handleClose.bind(this)}>
-                    <CircularProgress color="inherit" />
-                </MyBackdrop>
+                                        </div>
+                                    )}
+                                </ImageUploading>
 
-            </Container>
+                                <br/>
+
+                                <ul>
+
+                                    {notes.reverse().map(function(note, index){
+                                        return <Card key={ index } style={{ maxWidth: 245}} >
+                                            <CardHeader
+                                                //   title=  {note.getString(schema.text)}
+                                                subheader={ note.getString(schema.dateCreated)}
+                                            />
+                                            {note.getRef(schema.image) !== null &&
+                                            <CardMedia
+                                                style={{height: 0, paddingTop: '56.25%'}}
+                                                image={note.getRef(schema.image)}
+                                                title="Paella dish"
+                                            />
+                                            }
+                                            <CardContent>
+                                                <Typography variant="body2" color="textSecondary" component="p">
+                                                    {note.getString(schema.text)}
+                                                </Typography>
+                                            </CardContent>
+                                            <CardActions >
+                                                <Button variant="outlined" color="secondary" onClick={()=> instance.deleteNote(note)}><DeleteForeverIcon/></Button>
+                                            </CardActions>
+                                        </Card>
+
+                                    })}
+                                </ul>
+
+
+                                <MyBackdrop open={this.state.showSpinner} onClick={this.handleClose.bind(this)}>
+                                    <CircularProgress color="inherit" />
+                                </MyBackdrop>
+
+                            </Container>
+
+                        </ul>
+                    </div>
+                </div>
+
+
             </div>
         )
     }

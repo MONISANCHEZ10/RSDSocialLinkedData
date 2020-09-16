@@ -104,6 +104,8 @@ export default class MyFriends extends React.Component {
                                                 title={ note.name}
                                                 subheader={ note.getString(schema.dateCreated)}
                                             />
+
+
                                             {note.getRef(schema.image) !== null &&
                                             <CardMedia
                                                 style={{height: 0, paddingTop: '46.25%'}}

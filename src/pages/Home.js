@@ -12,27 +12,23 @@ import FriendsInfo from "../components/FriendsInfo";
 
 const Home = () => (
     <div>
-
-        <Container>
         <Row>
-            <Col>
+            <Col className="col-3">
                 <MyProfile/>
                 <MyPosts/>
             </Col>
-            <Col>
+            <Col className="col-6">
                 AMIGOS
-
                 <FriendsInfo />
-                <br/> <br/>
                 ACTIVIDAD RECIENTE MIS AMIGOS
                 <MyFriends/>
 
             </Col>
-            <Col>
+            <Col className="col-3">
                 <PostManager/>
             </Col>
         </Row>
-    </Container>
+
     </div>
 )
 

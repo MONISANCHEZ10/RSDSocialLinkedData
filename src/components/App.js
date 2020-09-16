@@ -4,7 +4,7 @@ import React from 'react'
 import Home from "../pages/Home";
 import {Link, Switch, Route, BrowserRouter as Router} from 'react-router-dom'
 import Login from "../pages/Login";
-import Friends from "../pages/Friends";
+import ShowFriends from "./Home/ShowFriends";
 import Posts from "../pages/Posts";
 import ProfilePage from "../pages/ProfilePage";
 import LayoutDefault from "../Layouts/LayoutAdmin";
@@ -45,7 +45,7 @@ const App = () => (
                 </Route>
                 <Route path="/friends">
                     <LayoutAdmin>
-                        <Friends />
+                        <ShowFriends />
                     </LayoutAdmin>
                 </Route>
                 <Route path="/posts">
