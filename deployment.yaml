@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rsd-social-app
+  namespace: flux-cd-ns
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rsd-social-app
+  template:
+    metadata:
+      labels:
+        app: rsd-social-app
+    spec:
+      containers:
+      - name: rsd-social-app
+        image: tu-registro/rsd-social-app:latest
+        ports:
+        - containerPort: 8090
