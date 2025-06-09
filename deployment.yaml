@@ -1,20 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: rsd-social-app
-  namespace: flux-cd-ns
+  name: rsd-social-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: rsd-social-app
+      app: rsd-social
   template:
     metadata:
       labels:
-        app: rsd-social-app
+        app: rsd-social
     spec:
       containers:
-      - name: rsd-social-app
-        image: tu-registro/rsd-social-app:latest
+      - name: rsd-social
+        image: nginx:alpine   # Puedes reemplazar por tu imagen propia luego
         ports:
-        - containerPort: 8090
+        - containerPort: 80
